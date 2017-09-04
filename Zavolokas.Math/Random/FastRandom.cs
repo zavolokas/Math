@@ -1,16 +1,28 @@
-﻿using System;
+﻿// The source code of the class was taken from the stackoverflow - https://stackoverflow.com/questions/37338620/which-one-is-faster-regex-or-endswith/37338859
+
+using System;
 using System.Diagnostics;
 
-namespace Zavolokas.Math
+namespace Zavolokas.Math.Random
 {
     public sealed class FastRandom
     {
-        // The +1 ensures NextDouble doesn't generate 1.0
-        const double RealUnitInt = 1.0 / ((double)int.MaxValue + 1.0);
-        const double RealUnitUint = 1.0 / ((double)uint.MaxValue + 1.0);
-        const uint Y = 842502087, Z = 3579807591, W = 273326509;
+        private const uint Y = 842502087;
+        private const uint Z = 3579807591;
+        private const uint W = 273326509;
 
-        uint _x, _y, _z, _w;
+        private const double RealUnitInt = 1.0 / ((double)int.MaxValue + 1.0);
+        private const double RealUnitUint = 1.0 / ((double)uint.MaxValue + 1.0);
+
+        private uint _x;
+        private uint _y;
+        private uint _z;
+        private uint _w;
+
+        // Buffer 32 bits in bitBuffer, return 1 at a time, keep track of how many have been returned
+        // with bitBufferIdx.
+        private uint _bitBuffer;
+        private uint _bitMask = 1;
 
         /// <summary>
         /// Initialises a new instance using time dependent seed.
@@ -191,45 +203,6 @@ namespace Zavolokas.Math
             _x = x; _y = y; _z = z; _w = w;
         }
 
-
-        //		/// <summary>
-        //		/// A version of NextBytes that uses a pointer to set 4 bytes of the byte buffer in one operation
-        //		/// thus providing a nice speedup. The loop is also partially unrolled to allow out-of-order-execution,
-        //		/// this results in about a x2 speedup on an AMD Athlon. Thus performance may vary wildly on different CPUs
-        //		/// depending on the number of execution units available.
-        //		/// 
-        //		/// Another significant speedup is obtained by setting the 4 bytes by indexing pDWord (e.g. pDWord[i++]=w)
-        //		/// instead of adjusting it dereferencing it (e.g. *pDWord++=w).
-        //		/// 
-        //		/// Note that this routine requires the unsafe compilation flag to be specified and so is commented out by default.
-        //		/// </summary>
-        //		/// <param name="buffer"></param>
-        //		public unsafe void NextBytesUnsafe(byte[] buffer)
-        //		{
-        //			if(buffer.Length % 8 != 0)
-        //				throw new ArgumentException("Buffer length must be divisible by 8", "buffer");
-        //
-        //			uint x=this.x, y=this.y, z=this.z, w=this.w;
-        //			
-        //			fixed(byte* pByte0 = buffer)
-        //			{
-        //				uint* pDWord = (uint*)pByte0;
-        //				for(int i=0, len=buffer.Length>>2; i < len; i+=2) 
-        //				{
-        //					uint t=(x^(x<<11));
-        //					x=y; y=z; z=w;
-        //					pDWord[i] = w = (w^(w>>19))^(t^(t>>8));
-        //
-        //					t=(x^(x<<11));
-        //					x=y; y=z; z=w;
-        //					pDWord[i+1] = w = (w^(w>>19))^(t^(t>>8));
-        //				}
-        //			}
-        //
-        //			this.x=x; this.y=y; this.z=z; this.w=w;
-        //		}
-
-
         /// <summary>
         /// Generates a uint. Values returned are over the full range of a uint, 
         /// uint.MinValue to uint.MaxValue, inclusive.
@@ -261,12 +234,6 @@ namespace Zavolokas.Math
             _x = _y; _y = _z; _z = _w;
             return (int)(0x7FFFFFFF & (_w = (_w ^ (_w >> 19)) ^ (t ^ (t >> 8))));
         }
-
-
-        // Buffer 32 bits in bitBuffer, return 1 at a time, keep track of how many have been returned
-        // with bitBufferIdx.
-        uint _bitBuffer;
-        uint _bitMask = 1;
 
         /// <summary>
         /// Generates a single random bit.

@@ -3,10 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Zavolokas.Math
+namespace Zavolokas.Math.Combinatorics
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public static class BinsPacker<T>
     {
+        /// <summary>
+        /// Packs the specified elements in a minimal number of bins based on the cost of an element.
+        /// </summary>
+        /// <param name="elements">The elements.</param>
+        /// <param name="getElementCost">The element cost function.</param>
+        /// <param name="maxBinSize">Maximum size of a bin.</param>
+        /// <returns></returns>
         public static IEnumerable<IEnumerable<T>> Pack(IEnumerable<T> elements, Func<T, int> getElementCost, int maxBinSize)
         {
             var orderedElements = elements.OrderByDescending(getElementCost);

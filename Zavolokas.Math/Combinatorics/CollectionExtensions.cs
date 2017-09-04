@@ -6,6 +6,12 @@ namespace Zavolokas.Math.Combinatorics
 {
     public static class CollectionExtensions
     {
+        /// <summary>
+        /// Gets all combinations of the provided items.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items">The items.</param>
+        /// <returns></returns>
         public static IEnumerable<IEnumerable<T>> GetAllCombinations<T>(this IEnumerable<T> items)
         {
             var result = new List<List<T>>();
@@ -13,13 +19,13 @@ namespace Zavolokas.Math.Combinatorics
             var itemsList = items.ToArray();
             var itemsCount = itemsList.Length;
 
-            double combinationsCount = System.Math.Pow(2, itemsCount) - 1;
+            var combinationsCount = System.Math.Pow(2, itemsCount) - 1;
 
-            for (int i = 1; i <= combinationsCount; i++)
+            for (var i = 1; i <= combinationsCount; i++)
             {
                 var combination = new List<T>();
-                string positions = Convert.ToString(i, 2).PadLeft(itemsCount, '0');
-                for (int j = 0; j < positions.Length; j++)
+                var positions = Convert.ToString(i, 2).PadLeft(itemsCount, '0');
+                for (var j = 0; j < positions.Length; j++)
                 {
                     if (positions[j] == '1')
                     {
