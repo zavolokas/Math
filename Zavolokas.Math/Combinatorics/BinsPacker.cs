@@ -18,7 +18,7 @@ namespace Zavolokas.Math.Combinatorics
         /// <param name="getElementCost">The element cost function.</param>
         /// <param name="maxBinSize">Maximum size of a bin.</param>
         /// <returns></returns>
-        public static IEnumerable<IEnumerable<T>> Pack(IEnumerable<T> elements, Func<T, int> getElementCost, int maxBinSize)
+        public static IEnumerable<IEnumerable<T>> Pack(IEnumerable<T> elements, Func<T, double> getElementCost, double maxBinSize)
         {
             var orderedElements = elements.OrderByDescending(getElementCost);
             var bins = new List<Bin>();
@@ -27,7 +27,7 @@ namespace Zavolokas.Math.Combinatorics
             {
                 //try to place into existing bins & find min bin
                 Bin properBin = null;
-                int minSum = int.MaxValue;
+                double minSum = double.MaxValue;
                 var ecost = getElementCost(element);
 
                 foreach (var bin in bins)
@@ -54,10 +54,10 @@ namespace Zavolokas.Math.Combinatorics
 
         private class Bin : IEnumerable<T>
         {
-            public int Sum;
+            public double Sum;
             private readonly List<T> _elements = new List<T>();
 
-            public void Put(T element, Func<T, int> getCost)
+            public void Put(T element, Func<T, double> getCost)
             {
                 _elements.Add(element);
                 Sum += getCost(element);
