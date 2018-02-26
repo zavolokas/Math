@@ -5,5 +5,5 @@ before_install:
   - wget -O .nuget/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
   - mono .nuget/nuget.exe # Output NuGet's version number
 install:
-  - mono .nuget/nuget.exe restore <solution.sln> -Verbosity detailed
+  - mono .nuget/nuget.exe restore Zavolokas.Math.sln -Verbosity detailed
   - mono .nuget/nuget.exe install NUnit.Runners -Version 3.3 -OutputDirectory ./src/packages
