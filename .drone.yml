@@ -1,0 +1,17 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: nuget
+    image: microsoft/dotnet:2.0-sdk
+    environment:
+      NUGETKEY:
+        from_secret: NUGET_KEY
+    commands:
+      - dotnet build Zavolokas.Math -c Release
+      - dotnet pack Zavolokas.Math -c Release -p:PackageVersion=1.0.1.$${DRONE_BUILD_NUMBER}
+      - dotnet nuget push Zavolokas.Math/bin/Release/Zavolokas.Math.1.0.1.$${DRONE_BUILD_NUMBER}.nupkg -s https://api.nuget.org/v3/index.json -k $${NUGETKEY}
+    when:
+      event: [push]
+      branch: [master]

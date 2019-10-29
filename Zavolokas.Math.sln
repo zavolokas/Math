@@ -1,17 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zavolokas.Math", "Zavolokas.Math\Zavolokas.Math.csproj", "{0F3FB430-DC2C-4A28-8979-B04A2E4A7DC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zavolokas.Math", "Zavolokas.Math\Zavolokas.Math.csproj", "{0F3FB430-DC2C-4A28-8979-B04A2E4A7DC6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{90FB1BF0-3491-489B-8616-8FA8675AA94F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllCombinations", "Samples\AllCombinations\AllCombinations.csproj", "{AC5BA7DF-8B29-4BC2-A6D3-B479D993E862}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AllCombinations", "Samples\AllCombinations\AllCombinations.csproj", "{AC5BA7DF-8B29-4BC2-A6D3-B479D993E862}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinPacking", "Samples\BinPacking\BinPacking.csproj", "{8F2BED6E-F818-4B16-9BFF-1001F9450C05}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomNumbers", "Samples\RandomNumbers\RandomNumbers.csproj", "{765E5929-B9A4-4EC9-B595-F83103021659}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DEAB8391-2E7B-4F8E-8616-ED8F9151417C}"
+	ProjectSection(SolutionItems) = preProject
+		.drone.yml = .drone.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,5 +48,8 @@ Global
 		{AC5BA7DF-8B29-4BC2-A6D3-B479D993E862} = {90FB1BF0-3491-489B-8616-8FA8675AA94F}
 		{8F2BED6E-F818-4B16-9BFF-1001F9450C05} = {90FB1BF0-3491-489B-8616-8FA8675AA94F}
 		{765E5929-B9A4-4EC9-B595-F83103021659} = {90FB1BF0-3491-489B-8616-8FA8675AA94F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {72FA1FC7-6C25-4751-9701-17418ED5F447}
 	EndGlobalSection
 EndGlobal
